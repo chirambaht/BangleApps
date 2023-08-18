@@ -14,7 +14,8 @@
       bg_r: 0,
       bg_g: 0,
       bg_b: 0,
-      text: 1
+      text: 1,
+      hrm_confidence: 50
       ,
     }, require ('Storage').readJSON (FILE, true) || {});
 
@@ -32,6 +33,11 @@
       "Text": { value: (settings.text == 1),
             format: v => v ? "Light" : "Dark",
             onchange: v => { settings.text = v; write_settings (); }},
+            "Heart Rate Confidence": {
+               value: settings.hrm_confidence,
+               min: 0, max: 100, step: 5, wrap: true,
+               onchange: v => { settings.hrm_confidence = v; write_settings (); }
+            }
     };
 
     var outline_menu = {
@@ -74,6 +80,14 @@
       "Blue": { value: settings.bg_b,
            min: 0, max: 1, step: 0.5, wrap: true,
            onchange: v => { settings.bg_b = v; write_settings (); }},
+    };
+    
+    var hrm_confidence = {
+      "" : { title : "Heart Rate Confidence",
+           back : function() { E.showMenu (main_menu); } },
+      "Red": { value: settings.bg_r,
+           min: 0, max: 1, step: 0.1, wrap: true,
+           onchange: v => { settings.bg_r = v; write_settings (); }},
     };
 
     E.showMenu (main_menu);

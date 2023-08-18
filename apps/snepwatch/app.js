@@ -40,6 +40,7 @@
     bg_g: 0,
     bg_b: 0,
     text: 1,
+    hrm_confidence: 50,
   }, require ('Storage').readJSON ("snepwatch.json", true) || {});
 
   /*
@@ -195,7 +196,7 @@
 
   /* Callback for the heart rate monitor */
   let heart_rate_cb = hrm => {
-    if (hrm.bpm > 0 && hrm.confidence > 50) {
+    if (hrm.bpm > 0 && hrm.confidence > hrm_confidence) {
       heart_rate = hrm.bpm;
       heart_rate_time = Date.now ();
     }
